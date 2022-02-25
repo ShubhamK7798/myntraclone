@@ -2,10 +2,11 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { useState } from "react";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import storage from "../database/firebase";
+import storage from "../../database/firebase";
 import { useEffect } from "react";
+import Link from "next/link";
 
 const Admin = () => {
   const fileRef = useRef();
@@ -70,7 +71,16 @@ const Admin = () => {
   };
 
   return (
-    <main className="h-[90vh] bg-gray-50 flex flex-col space-y-4 max-w-5xl mx-auto items-center relative">
+    <main className="h-[90vh] bg-gray-50 flex px-12  ">
+
+        <div>
+           <Link href='/admin/users'   >
+               <a>Users</a>
+           </Link>
+        </div>
+        <div className="flex flex-1 flex-col space-y-4 max-w-5xl mx-auto items-center relative">
+
+        
       {/* loading */}
 
       {isLoading && (
@@ -116,6 +126,7 @@ const Admin = () => {
           ))}
         </div>
       </form>
+      </div>
     </main>
   );
 };

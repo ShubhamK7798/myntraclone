@@ -6,11 +6,12 @@ import Product from '../../../database/ProductsModel'
 export default async function handler(req,res){
     await dbConnect()
 
-    const {body,method} = req
+    const {body,method,query:{gender}} = req
 
 
     if(method === 'GET'){
-        const allProducts = await Product.find({})
+        
+        const allProducts = await Product.find({ gender})
         allProducts || res.status(404).json('no products found')
         res.status(200).json(allProducts)
 

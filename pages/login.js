@@ -1,15 +1,24 @@
+import axios from 'axios'
 import Image from 'next/image'
+import  { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import Cookies from "js-cookie";
+import { useDispatch } from 'react-redux';
+import { user } from '../redux/userslice';
+
 
 const Login = () => {
+    const router = useRouter()
+  const dispatch = useDispatch()
 
 
 
 
-    const [form,setForm]=useState({
+    const initialValue = {
         email : '',
         password : ''
-    })
+    }
+    const [form,setForm]=useState(initialValue)
 
 
     const handleForm =  (e)=>{
@@ -17,6 +26,17 @@ const Login = () => {
       
     }
     const submitlogin = async ()=>{
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+
+
+        const res = await axios.post('/api/auth/login',form)
+        dispatch(user({...res.data._doc}))
+    
+        Cookies.set("jwt", res.data.token);
+        setForm(initialValue)
+        router.push('/')
+
+
     }
   return (
     <div className='w-screen h-[80vh] flex items-center justify-center bg-pink-50 py-8'>

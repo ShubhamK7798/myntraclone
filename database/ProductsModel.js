@@ -6,6 +6,7 @@ const ProductSchema = new Schema({
         required:true
     },
     category:String,
+    gender:String,
     price:{
         type : Number,
         required:[true,'Price is Req']
