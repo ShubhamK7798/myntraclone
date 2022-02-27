@@ -3,12 +3,20 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { user } from "../redux/userslice";
+import { mobileSidebar, user } from "../redux/userslice";
+import {GrMenu} from 'react-icons/gr'
+import {CgProfile} from 'react-icons/cg'
+import {AiOutlineShoppingCart,AiOutlineClose } from 'react-icons/ai'
+import NavbarLinks from "./NavbarLinks";
+import SideBarMobile from "./SideBarMobile";
 
 const Navbar = () => {
   const dispatch = useDispatch();
 
   const selector = useSelector((state) => state.user.loggedUser);
+  const selectorMobile = useSelector((state) => state.user.mobileSidebar);
+  const selectorCartItems = useSelector((state) => state.cart.cartItems);
+
 
   const [mouse, setMouse] = useState();
   const router = useRouter();
@@ -30,46 +38,32 @@ const Navbar = () => {
     router.push("/");
   };
 
+  
+
   return (
-    <header className="flex justify-between max-w-[1500px] items-center z-50 sticky top-0 mx-auto  w-screen  p-8  bg-white">
+    <header className="flex justify-between max-w-[1500px] items-center z-50 sticky top-0 mx-auto  w-screen  p-6  bg-white">
+       <SideBarMobile/>
+
+
       {/* left */}
-      <div className="flex space-x-12">
+      <div className="flex lg:space-x-12">
+        <i onClick={()=>dispatch(mobileSidebar())} className="text-3xl mr-8 lg:hidden cursor-pointer">
+          {!selectorMobile ? <GrMenu/> : <AiOutlineClose/>}
+        </i>
         <Link href="/">
-          <div className="relative w-16 h-8 cursor-pointer">
+          <div className="relative w-10 h-8 cursor-pointer ">
             <Image src="/myntra.png" objectFit="contain" layout="fill" />
           </div>
         </Link>
 
         <nav className="hidden lg:flex lg:space-x-8 font-semibold">
-          <Link href="/men">
-            <a> Men</a>
-          </Link>
-          <Link href="/women">
-            <a> Women</a>
-          </Link>
-          <Link href="/">
-            <a> Kids</a>
-          </Link>
-          <Link href="/">
-            <a> Living </a>
-          </Link>
-          <Link href="/">
-            <a> Beauty</a>
-          </Link>
-          {selector?.admin ? (
-            <Link href="/admin">
-              <a>Admin</a>
-            </Link>
-          ) : (
-            <Link href="/">
-              <a>Studio</a>
-            </Link>
-          )}
+          <NavbarLinks selector={selector}/>
+        
         </nav>
       </div>
 
       {/* right */}
-      <div className="hidden ml-28 pr-8 md:flex space-x-4 font-semibold flex-grow justify-end items-center">
+      <div className=" ml-28 pr-8 flex space-x-4 font-semibold flex-grow justify-end items-center">
         <div className="border bg-gray-50 p-2 hidden lg:flex flex-grow text-xs ">
           <input
             type="text"
@@ -83,13 +77,15 @@ const Navbar = () => {
           onMouseLeave={handlemouseleave}
           className="cursor-pointer relative"
         >
-          <div className="relative rounded-full w-10 h-10 overflow-hidden bg-red-200 flex items-center justify-center p-2">
+          <div className="relative rounded-full w-10 h-10 overflow-hidden flex items-center justify-center p-2">
             {selector?.avatar ? (
               <Image src={selector.avatar} objectFit="cover" layout="fill" />
             ) : (
-              <h1>Profile</h1>
+              <i className="text-3xl"><CgProfile/></i>
             )}
           </div>
+
+          {/* Profile Modal */}
 
           <div
             className={`${
@@ -121,8 +117,17 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        <div className="cursor-pointer">Wishlist</div>
-        <div className="cursor-pointer">Bag</div>
+          {/* Profile Ends */}
+
+        <div className="cursor-pointer hidden lg:block ">Wishlist</div>
+        <div onClick={()=>router.push('/cart')} className="cursor-pointer relative text-3xl"><AiOutlineShoppingCart/>
+        <div className={`${selectorCartItems.length ? `absolute` : `hidden`} -top-3 -right-3 bg-orange-500 text-white flex-shrink-0 w-6 text-base cursor-pointer h-6 rounded-full flex justify-center items-center`}>
+          {selectorCartItems.length}
+        </div>
+
+        
+        
+        </div>
       </div>
     </header>
   );

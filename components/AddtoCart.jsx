@@ -3,7 +3,7 @@ import React from 'react'
 
 const AddtoCart = ({onClick}) => {
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} >
         
         <div
   className="inline-flex overflow-hidden text-white bg-gray-900 cursor-pointer rounded group"

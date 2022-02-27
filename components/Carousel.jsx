@@ -20,7 +20,7 @@ const Carousel = ({sliderimage}) => {
 
 
   return (
-    <Slider {...settings} className="w-full   mx-auto h-96  ">
+    <Slider {...settings} className="w-full !hidden md:!block  mx-auto h-96  ">
 
       {sliderimage.map(item=>(<div key={item} className='flex h-96 relative w-full '>
 
