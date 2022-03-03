@@ -16,10 +16,11 @@ const ProductPage = () => {
   });
 
   const [showBag, setShowBag] = useState(false);
-  const searchparams = window.location.href.slice(22).split("=");
+  const searchparams = window.location.href.split('/').slice(-1)[0].split('?')
 
-  const getfromlocal = JSON.parse(localStorage.getItem(router.query.gender || searchparams[1]));
-  const params = router.query.productPage || searchparams[0].split("?")[0];
+  const getfromlocal = JSON.parse(localStorage.getItem(router.query.gender || searchparams[1].split('=')[1]));
+  const params = router.query.productPage || searchparams[0];
+
 
   const getProduct = getfromlocal[params];
 
