@@ -54,7 +54,7 @@ export default AdminId
 export async function getServerSideProps(context){
     const params = context.query.adminid
 
-    const res = await axios.get(`http://localhost:3000/api/${params}`)
+    const res = await axios.get(process.env.BASE_URL+`/api/${params}`)
     const usersData = res.data
 
 

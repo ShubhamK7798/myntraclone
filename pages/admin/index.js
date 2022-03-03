@@ -50,7 +50,7 @@ const Admin = () => {
     e.preventDefault();
 
     try {
-      const postdata = await axios.post("http://localhost:3000/api/products", formdata);
+      const postdata = await axios.post("/api/products", formdata);
       const res = await postdata;
       // setIsLoading(false);
       alert("form submited");

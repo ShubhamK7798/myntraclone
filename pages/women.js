@@ -74,7 +74,7 @@ const Women = ({ productslist }) => {
 export default Women;
 
 export async function getServerSideProps(context) {
-  const res = await axios.get("http://localhost:3000/api/products", {
+  const res = await axios.get(process.env.BASE_URL + "/api/products", {
     params: {
       gender: "Women",
     },

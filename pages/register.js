@@ -31,7 +31,7 @@ const Login = () => {
       if (validation) return alert(validation);
       axios.defaults.headers.post["Content-Type"] = "application/json";
 
-      const res = await axios.post("http://localhost:3000/api/auth/register", form);
+      const res = await axios.post("/api/auth/register", form);
 
       dispatch(user({ ...res.data._doc }));
 
