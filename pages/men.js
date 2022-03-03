@@ -4,8 +4,22 @@ import React, { useState } from "react";
 import Filter from "../components/Filter";
 import ProductCard from "../components/ProductCard";
 import ReactPaginate from 'react-paginate';
+import dbConnect from "../database/connect";
+import Product from "../database/ProductsModel";
 
-const Men = ({ productslist }) => {
+
+export async function getStaticProps() {
+  await dbConnect()
+
+  const productslist = JSON.parse(JSON.stringify(await Product.find({gender:'Men'})))
+  return {
+    props: {
+      productslist,
+    },
+  };
+}
+
+const Men = ({ productslist  }) => {
   const router = useRouter();
   const filters = router.query.filter;
   const category = [...new Set(productslist.map((item) => item.category))];
@@ -75,16 +89,4 @@ const Men = ({ productslist }) => {
 
 export default Men;
 
-export async function getServerSideProps(context) {
-  const res = await axios.get(process.env.BASE_URL + '/api/products', {
-    params: {
-      gender: "Men",
-    },
-  });
-  const productslist = await res.data;
-  return {
-    props: {
-      productslist,
-    },
-  };
-}
+

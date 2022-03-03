@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Filter from "../components/Filter";
 import ProductCard from "../components/ProductCard";
 import ReactPaginate from 'react-paginate';
+import dbConnect from "../database/connect";
+import Product from "../database/ProductsModel";
 
 
 const Women = ({ productslist }) => {
@@ -73,13 +75,10 @@ const Women = ({ productslist }) => {
 
 export default Women;
 
-export async function getServerSideProps(context) {
-  const res = await axios.get(process.env.BASE_URL + "/api/products", {
-    params: {
-      gender: "Women",
-    },
-  });
-  const productslist = await res.data;
+export async function getStaticProps(context) {
+  await dbConnect()
+
+  const productslist = JSON.parse(JSON.stringify(await Product.find({gender:'Women'}))) 
   return {
     props: {
       productslist,

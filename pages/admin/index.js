@@ -40,7 +40,7 @@ const Admin = () => {
         });
     };
     upload();
-  }, [imageUrl]);
+  }, [imageUrl,formdata.title,stringdate]);
 
   const handleformdata = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
