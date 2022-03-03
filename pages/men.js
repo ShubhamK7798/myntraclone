@@ -13,7 +13,6 @@ const Men = ({ productslist }) => {
   const [page,setPage] = useState(0)
 
   localStorage.setItem("men", JSON.stringify(productslist));
-  console.log(productslist)
 
   const isBrandinUrl = brand.filter((i) => filters?.includes(i));
   const isCategoryinUrl = category.filter((i) => filters?.includes(i));
@@ -76,7 +75,7 @@ const Men = ({ productslist }) => {
 
 export default Men;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const res = await axios.get("http://localhost:3000/api/products", {
     params: {
       gender: "Men",

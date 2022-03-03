@@ -18,7 +18,6 @@ const userSlice = createSlice({
     mobileSidebar(state,action){
       const oldvalue = state.mobileSidebar
       state.mobileSidebar = !oldvalue
-      console.log(state.mobileSidebar)
     }
 
 

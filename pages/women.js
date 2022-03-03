@@ -73,7 +73,7 @@ const Women = ({ productslist }) => {
 
 export default Women;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const res = await axios.get("http://localhost:3000/api/products", {
     params: {
       gender: "Women",

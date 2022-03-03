@@ -13,7 +13,7 @@ const Slider = () => {
         <div  className='flex overflow-x-auto'>
 
 
-            {category2.map((item)=><div className='relative flex shrink-0 w-screen h-[50vh]'><Image key={item} src={item} layout='fill'objectFit='cover' />
+            {category2.map((item)=><div key={item} className='relative flex shrink-0 w-screen h-[50vh]'><Image  src={item} layout='fill'objectFit='cover' />
             </div>)}
         </div>
 

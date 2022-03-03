@@ -10,29 +10,24 @@ const ProductPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [productSize, setProductSize] = useState();
-  const [sizActive,setSizeActive] = useState({
-    sizeClicked:'',
-    SelectSize:true,
-        
-  })
+  const [sizActive, setSizeActive] = useState({
+    sizeClicked: "",
+    SelectSize: true,
+  });
 
   const [showBag, setShowBag] = useState(false);
-  console.log(router.query.gender);
+  const searchparams = window.location.href.slice(22).split("=");
 
-
-  const getfromlocal = JSON.parse(localStorage.getItem(router.query.gender));
-  console.log('local',getfromlocal)
-  console.log(router)
-  const params = router.query.productPage
+  const getfromlocal = JSON.parse(localStorage.getItem(router.query.gender || searchparams[1]));
+  const params = router.query.productPage || searchparams[0].split("?")[0];
 
   const getProduct = getfromlocal[params];
 
   const { title, _id, size, brand, description, price, img } = getProduct;
 
   const handleCart = () => {
-    if(!sizActive.sizeClicked) return setSizeActive(prev=>({...prev,SelectSize:false}))
-    setSizeActive(prev=>({...prev,SelectSize:true}))
-    
+    if (!sizActive.sizeClicked) return setSizeActive((prev) => ({ ...prev, SelectSize: false }));
+    setSizeActive((prev) => ({ ...prev, SelectSize: true }));
 
     const payload = {
       title,
@@ -47,10 +42,10 @@ const ProductPage = () => {
     setShowBag(true);
   };
 
-  const handleSize = (i)=> {
-    setProductSize(i)
-    setSizeActive({sizeClicked:i,SelectSize:true})
-  }
+  const handleSize = (i) => {
+    setProductSize(i);
+    setSizeActive({ sizeClicked: i, SelectSize: true });
+  };
 
   return (
     <main className=" max-w-[1500px] mx-auto grid  grid-cols-3 p-4 gap-x-8">
@@ -79,15 +74,21 @@ const ProductPage = () => {
         <h1 className="font-semibold text-lg">Rs {price}</h1>
         <div>
           <p className="uppercase font-semibold mb-4">Select Size</p>
-          <p className={`${!sizActive.SelectSize ? `block` : `hidden` } animate-bounce mb-4 text-red-400`} >Please select a Size</p>
+          <p
+            className={`${
+              !sizActive.SelectSize ? `block` : `hidden`
+            } animate-bounce mb-4 text-red-400`}
+          >
+            Please select a Size
+          </p>
 
           <div className="flex gap-4 flex-wrap ">
-
-
             {size[0].split(",").map((i) => (
               <span
-                onClick={()=>handleSize(i)}
-                className={` ${sizActive.sizeClicked === i && `text-red-400 border-red-500`}  rounded-full flex-shrink-0  flex justify-center cursor-pointer hover:border-red-500 items-center w-12 h-12 border-2`}
+                onClick={() => handleSize(i)}
+                className={` ${
+                  sizActive.sizeClicked === i && `text-red-400 border-red-500`
+                }  rounded-full flex-shrink-0  flex justify-center cursor-pointer hover:border-red-500 items-center w-12 h-12 border-2`}
                 key={i}
               >
                 {i}
