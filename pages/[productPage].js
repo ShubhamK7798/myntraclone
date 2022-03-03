@@ -21,7 +21,7 @@ const ProductPage = () => {
   const getfromlocal = JSON.parse(localStorage.getItem(router.query.gender || searchparams[1].split('=')[1]));
   const params = router.query.productPage || searchparams[0];
 
-  const getProduct = getfromlocal[params];
+  const getProduct = getfromlocal.find((item)=> item._id === params );
 
   const { title, _id, size, brand, description, price, img } = getProduct;
 

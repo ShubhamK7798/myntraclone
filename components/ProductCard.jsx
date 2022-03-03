@@ -8,7 +8,7 @@ const ProductCard = ({img,title,price,id,index,gender}) => {
 
   return (
     <div className='flex flex-col xl:flex-shrink-0 w-56 group h-fit hover:shadow-lg xl:m-4 cursor-pointer ' onClick={()=>router.push({
-      pathname:`/${index}`,
+      pathname:`/${id}`,
       query:{gender}
     })} >
 

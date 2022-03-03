@@ -76,7 +76,6 @@ const Men = ({ productslist }) => {
 export default Men;
 
 export async function getServerSideProps(context) {
-  console.log(context.pathname)
   const res = await axios.get(process.env.BASE_URL + '/api/products', {
     params: {
       gender: "Men",

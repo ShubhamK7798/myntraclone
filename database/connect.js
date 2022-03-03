@@ -5,7 +5,7 @@ const conn = {
 }
 
 export default async function dbConnect(){
-    conn.isConnected && console.log('mongo connected')
+    conn.isConnected && console.log('mongo already connected')
     if(conn.isConnected) return;
 
     const db = await connect(process.env.MONGO_URI)
