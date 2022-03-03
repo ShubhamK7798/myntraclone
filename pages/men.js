@@ -76,7 +76,8 @@ const Men = ({ productslist }) => {
 export default Men;
 
 export async function getServerSideProps(context) {
-  const res = await axios.get("http://localhost:3000/api/products", {
+  
+  const res = await axios.get("https://myntraclonesgk.vercel.app/api/products", {
     params: {
       gender: "Men",
     },
