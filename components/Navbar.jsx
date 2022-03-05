@@ -57,7 +57,7 @@ const Navbar = () => {
         </Link>
 
         <nav className="hidden lg:flex lg:space-x-8 font-semibold">
-          <NavbarLinks selector={selector}/>
+          <NavbarLinks  className=' hover:underline underline-offset-2 ' selector={selector}/>
         
         </nav>
       </div>

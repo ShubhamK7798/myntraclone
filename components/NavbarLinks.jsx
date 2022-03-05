@@ -1,34 +1,34 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { memo } from 'react'
 
-const NavbarLinks = ({selector}) => {
+const NavbarLinks = ({selector,className,onClick}) => {
   return (
     <>
       <Link href="/men">
-            <a> Men</a>
+            <a className={className} onClick={onClick}> Men</a>
           </Link>
           <Link href="/women">
-            <a> Women</a>
+            <a className={className} onClick={onClick}> Women</a>
           </Link>
           <Link href="/">
-            <a> Kids</a>
+            <a className={className} onClick={onClick}> Kids</a>
           </Link>
           <Link href="/">
-            <a> Living </a>
+            <a className={className} onClick={onClick}> Living </a>
           </Link>
           <Link href="/">
-            <a> Beauty</a>
+            <a className={className} onClick={onClick}> Beauty</a>
           </Link>
           {selector?.admin ? (
             <Link href="/admin">
-              <a>Admin</a>
+              <a className={className} onClick={onClick}>Admin</a>
             </Link>
           ) : (
             <Link href="/">
-              <a>Studio</a>
+              <a className={className} onClick={onClick}>Studio</a>
             </Link>
           )}</>
   )
 }
 
-export default NavbarLinks
+export default memo(NavbarLinks)
